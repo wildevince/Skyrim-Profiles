@@ -1,0 +1,12 @@
+﻿{
+    "profilesRoot": "E:\\SteamLibrary\\steamapps\\common\\Skyrim-Profiles",
+    "targetRoot": "C:\\Users\\wilde\\OneDrive\\Documents\\My Games\\Skyrim Special Edition",
+    "backupRoot": "_Backups",
+    "active_version": "Solo",
+    "last_switch": "2026-06-24 22:32:04",
+    "last_backup": "E:\\SteamLibrary\\steamapps\\common\\Skyrim-Profiles\\_Backups\\2026-06-24_22-32-04",
+    "versions": {
+        "Solo": "profiles\\Solo",
+        "Keizaal": "profiles\\Keizaal"
+    }
+}

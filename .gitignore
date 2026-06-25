@@ -1,0 +1,21 @@
+# Backups horodates
+_Backups/
+
+# Logs SKSE regeneres a chaque session
+profiles/*/SKSE/*.log
+
+# Game data
+profiles/*
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# OS / IDE
+Thumbs.db
+.DS_Store
+
+# Dev
+docs/*
+launchers/SkyrimSE-Solo.exe
