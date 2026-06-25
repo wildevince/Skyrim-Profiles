@@ -1,10 +1,13 @@
 # Backups horodates
 _Backups/
 
+# Config locale (machine) — utiliser MyConfig.example.json comme modele
+MyConfig.json
+
 # Logs SKSE regeneres a chaque session
 profiles/*/SKSE/*.log
 
-# Game data
+# Donnees de jeu (saves, ini actifs par profil)
 profiles/*
 
 # Python
@@ -16,6 +19,9 @@ __pycache__/
 Thumbs.db
 .DS_Store
 
-# Dev
-docs/*
-launchers/SkyrimSE-Solo.exe
+# dev
+docs/ANALYSE-FINALE.md
+docs/RAPPORT-ANALYSE.md
+
+# Raccourcis / exe perso (chemins locaux)
+launchers/*.exe

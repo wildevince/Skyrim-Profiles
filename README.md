@@ -1,6 +1,15 @@
 # Skyrim-Profiles
 
-Gestion de **deux usages de Skyrim SE** sur la même machine (Keizaal Online + solo moddé) sans mélange de configuration, sauvegardes ni fichiers SKSE.
+Gestion de **deux usages de Skyrim SE** sur la même machine — **pas plus de deux profils** par conception (ex. Keizaal Online + solo moddé), sans mélange de configuration, sauvegardes ni fichiers SKSE.
+
+> **Open source (MIT)** — publié sur GitHub (bientôt). Libre d'utiliser, modifier et partager. Voir [LICENSE](LICENSE) et [docs/GUIDE-INSTALLATION.md](docs/GUIDE-INSTALLATION.md).
+
+## Première installation
+
+1. Copier `MyConfig.example.json` → `MyConfig.json`
+2. Remplir les chemins (voir le [guide d'installation](docs/GUIDE-INSTALLATION.md))
+3. Créer `profiles\` pour tes deux usages
+4. Lancer `Skyrim-Profiles.vbs`
 
 ## Principe
 
@@ -18,7 +27,8 @@ Ce projet y déploie, au moment du lancement, le contenu du **profil actif** sto
 Skyrim-Profiles/
 ├── Skyrim-Profiles.vbs           # Lanceur principal (GUI, sans console)
 ├── Skyrim-Profiles.bat           # Lanceur alternatif (GUI)
-├── MyConfig.json                 # Configuration centrale
+├── MyConfig.json                 # Ta config locale (non versionnee)
+├── MyConfig.example.json         # Modele a copier
 ├── profiles/
 │   ├── Keizaal/                  # Miroir My Games — Keizaal
 │   └── Solo/                     # Miroir My Games — solo moddé
@@ -52,14 +62,18 @@ launchers\Activer-Solo.bat
 .\scripts\Switch-SkyrimProfile.ps1 -Status
 ```
 
-## Configuration — `MyConfig.json`
+## Configuration
+
+Copie **`MyConfig.example.json`** en **`MyConfig.json`** et adapte les chemins.
+
+Guide détaillé : **[docs/GUIDE-INSTALLATION.md](docs/GUIDE-INSTALLATION.md)**
 
 ```json
 {
     "profilesRoot": "E:\\...\\Skyrim-Profiles",
     "targetRoot": "C:\\Users\\<toi>\\Documents\\My Games\\Skyrim Special Edition",
     "backupRoot": "_Backups",
-    "active_version": "Solo",
+    "active_version": null,
     "versions": {
         "Solo": "profiles\\Solo",
         "Keizaal": "profiles\\Keizaal"
@@ -89,9 +103,12 @@ launchers\Activer-Solo.bat
 
 ## Git
 
+`MyConfig.json` et `profiles/` sont ignorés — chaque utilisateur garde sa config locale. Le dépôt fournit `MyConfig.example.json` comme modèle.
+
 ```gitignore
+MyConfig.json
 _Backups/
-profiles/*/SKSE/*.log
+profiles/*
 ```
 
 ## Points d'attention
@@ -101,3 +118,7 @@ profiles/*/SKSE/*.log
 - Purger `_Backups\` manuellement si l'espace manque
 
 Voir `gui/README.md` pour les options d'interface (tkinter, CustomTkinter, etc.).
+
+## Licence
+
+[MIT](LICENSE) — libre d'utiliser, modifier et redistribuer.

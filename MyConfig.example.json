@@ -1,0 +1,12 @@
+{
+    "profilesRoot": "CHEMIN_ABSOLU_VERS_CE_DEPOT",
+    "targetRoot": "C:\\Users\\TON_UTILISATEUR\\Documents\\My Games\\Skyrim Special Edition",
+    "backupRoot": "_Backups",
+    "active_version": null,
+    "last_switch": null,
+    "last_backup": null,
+    "versions": {
+        "ProfilA": "profiles\\ProfilA",
+        "ProfilB": "profiles\\ProfilB"
+    }
+}
