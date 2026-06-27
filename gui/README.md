@@ -2,16 +2,16 @@
 
 ## Lancement
 
-Double-clic sur **`Skyrim-Profiles.vbs`** à la racine du projet (recommandé, sans console).
+Double-clic sur **`Skyrim-Profiles.pyw`** à la racine du projet (recommandé, sans console).
 
-Ou :
+Ou en ligne de commande depuis la racine du dépôt :
 
 ```bash
-python3 gui/app.py
-# ou : python gui/app.py
+python Skyrim-Profiles.pyw
+# ou : python -m gui.entry
 ```
 
-Scripts `.bat` détaillés dans `launchers/` (voir `launchers/README.md`).
+**Première installation :** si `MyConfig.json` est absent, un assistant tkinter guide la configuration (chemins, profil initial), puis ouvre l’interface de bascule.
 
 ## Technologie : tkinter (choix actuel)
 
@@ -27,13 +27,19 @@ Scripts `.bat` détaillés dans `launchers/` (voir `launchers/README.md`).
 ## Architecture
 
 ```
-gui/app.py  ──subprocess──▶  scripts/Switch-SkyrimProfile.ps1
-                                    │
-                                    ▼
+Skyrim-Profiles.pyw
+       │
+       ├─ MyConfig.json absent? → gui/wizard.py (assistant)
+       └─ sinon                 → gui/app.py (switch)
+                                        │
+                                        ▼ subprocess
+                            scripts/Switch-SkyrimProfile.ps1
+                                        │
+                                        ▼
                             ProfileSwitcher.psm1
 ```
 
-La logique métier reste en PowerShell ; Python ne fait que l'affichage et la confirmation.
+La logique métier reste en PowerShell ; Python gère l’onboarding, l’affichage et la confirmation.
 
 ## Évolutions possibles
 

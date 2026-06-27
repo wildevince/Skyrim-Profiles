@@ -3,6 +3,7 @@ _Backups/
 
 # Config locale (machine) — utiliser MyConfig.example.json comme modele
 MyConfig.json
+MyConfig.save.json
 
 # Logs SKSE regeneres a chaque session
 profiles/*/SKSE/*.log
@@ -20,6 +21,8 @@ Thumbs.db
 .DS_Store
 
 # dev
+dev/*
+
 docs/ANALYSE-FINALE.md
 docs/RAPPORT-ANALYSE.md
 

@@ -116,6 +116,62 @@ function Get-SkyrimProfileStatus {
     }
 }
 
+function Initialize-SkyrimProfiles {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$InitialProfile,
+        [Parameter(Mandatory = $true)]
+        [string]$ProjectRoot
+    )
+
+    $ctx = Get-SkyrimProfileConfig -ProjectRoot $ProjectRoot
+    $config = $ctx.Config
+    $configFile = $ctx.ConfigFile
+
+    $availableProfiles = @($config.versions.PSObject.Properties.Name)
+    if ($InitialProfile -notin $availableProfiles) {
+        throw "Profil initial inconnu : $InitialProfile. Disponibles : $($availableProfiles -join ', ')"
+    }
+
+    $profilesRoot = $config.profilesRoot
+    $targetRoot   = $config.targetRoot
+    $backupRoot   = Join-Path $profilesRoot $config.backupRoot
+
+    if (-not (Test-Path -LiteralPath $profilesRoot)) {
+        throw "Dossier des profils introuvable : $profilesRoot"
+    }
+
+    if (-not (Test-Path -LiteralPath $targetRoot)) {
+        New-Item -ItemType Directory -Path $targetRoot -Force | Out-Null
+    }
+
+    if (-not (Test-Path -LiteralPath $backupRoot)) {
+        New-Item -ItemType Directory -Path $backupRoot -Force | Out-Null
+    }
+
+    foreach ($name in $availableProfiles) {
+        $profilePath = Resolve-SkyrimProfilePath -Config $config -ProfileName $name
+        if (-not (Test-Path -LiteralPath $profilePath)) {
+            New-Item -ItemType Directory -Path $profilePath -Force | Out-Null
+        }
+    }
+
+    $initialPath = Resolve-SkyrimProfilePath -Config $config -ProfileName $InitialProfile
+    Write-Host "Capture initiale depuis My Games vers $InitialProfile..."
+    Sync-SkyrimDirectory -Source $targetRoot -Destination $initialPath -Mirror
+
+    $config.active_version = $InitialProfile
+    $config.last_switch    = (Get-Date -Format "yyyy-MM-dd HH:mm:ss")
+    Save-SkyrimProfileConfig -Config $config -ConfigFile $configFile
+
+    return [PSCustomObject]@{
+        Success       = $true
+        InitialProfile = $InitialProfile
+        ProfilePath   = $initialPath
+        TargetRoot    = $targetRoot
+    }
+}
+
 function Switch-SkyrimProfile {
     param(
         [Parameter(Mandatory = $true)]
@@ -216,5 +272,6 @@ function Switch-SkyrimProfile {
 Export-ModuleMember -Function @(
     'Get-SkyrimProfileConfig',
     'Get-SkyrimProfileStatus',
+    'Initialize-SkyrimProfiles',
     'Switch-SkyrimProfile'
 )

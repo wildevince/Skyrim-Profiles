@@ -6,7 +6,7 @@
     "last_switch": null,
     "last_backup": null,
     "versions": {
-        "ProfilA": "profiles\\ProfilA",
-        "ProfilB": "profiles\\ProfilB"
+        "Solo": "profiles\\Solo",
+        "Keizaal": "profiles\\Keizaal"
     }
 }
